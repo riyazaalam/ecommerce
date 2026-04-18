@@ -11,8 +11,8 @@
     <meta name="author" content="PIXINVENT">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> @yield('title') </title>
-    <link rel="shortcut icon" type="image/x-icon" href="/frontend/tcul-img/favicon.svg">
-    <link rel="shortcut icon" type="image/png" href="/frontend/tcul-img/favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon_icon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon_icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
