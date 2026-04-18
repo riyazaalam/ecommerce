@@ -39,7 +39,7 @@
                             <div class="col-md-6 mt-3">
                                 <fieldset class="form-group">
                                     <label for="basicInput">Main Image <sup class="tcul-star-restrict">*</sup></label>
-                                    <input type="file" class="form-control-file"  name="main_image" id="product-main_image" placeholder="Main Image">
+                                    <input type="file" class="form-control-file"  name="main_image" id="product-main_image" placeholder="Main Image" accept="image/*" >
                                     <div id="product-main_image-error" style="color:red"></div>
                                 </fieldset>
                             </div>
@@ -51,6 +51,7 @@
                                         class="form-control-file" 
                                         name="other_images[]" 
                                         id="product-other_images" 
+                                        accept="image/*" 
                                         multiple>
                                     <div id="product-other_images-error" style="color:red"></div>
                                 </fieldset>
