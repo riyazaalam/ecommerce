@@ -164,33 +164,16 @@
                         </li>
                     
                        
-                                {{-- <li class="has-sub nav-item"><a href="#"><i class="fa fa-boxes"></i><span class="menu-title" data-i18n="Tables">Master Products</span></a>
+                                <li class="has-sub nav-item"><a href="#"><i class="fa fa-boxes"></i><span class="menu-title" data-i18n="Tables">Master Products</span></a>
                                     <ul class="menu-content">
                                         <li class="nav-item @if(Route::is('admin.products.*') && request()->input('type') === null) active @endif">
                                             <a href="/admin/products">
-                                                <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Main Products</span>
+                                                <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Products</span>
                                             </a>
                                         </li>
-                                        
-                                        <li class="nav-item @if(Route::is('admin.products.*') && request()->input('type') === 'RAW_MATERIAL') active @endif">
-                                            <a href="/admin/products?type=RAW_MATERIAL">
-                                                <i class="fa fa-cog"></i><span class="menu-title" data-i18n="Email">Raw Material</span>
-                                            </a>
-                                        </li>
-                                        
-                                        <li class="nav-item @if(Route::is('admin.products.*') && request()->input('type') === 'TOOLS_AND_INSERTS') active @endif">
-                                            <a href="/admin/products?type=TOOLS_AND_INSERTS">
-                                                <i class="fa fa-tools"></i><span class="menu-title" data-i18n="Email">Tools and Inserts</span>
-                                            </a>
-                                        </li>
-                                        
-                                        <li class="nav-item @if(Route::is('admin.products.*') && request()->input('type') === 'OTHER') active @endif">
-                                            <a href="/admin/products?type=OTHER">
-                                                <i class="fa fa-pen"></i><span class="menu-title" data-i18n="Email">Others</span>
-                                            </a>
-                                        </li>
+                                       
                                     </ul>
-                                </li> --}}
+                                </li>
                             
                                 {{-- <li class="has-sub nav-item"><a href="#"><i class="fa fa-building"></i><span class="menu-title" data-i18n="Tables">Organisations</span></a>
                                     <ul class="menu-content">

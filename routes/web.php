@@ -50,6 +50,7 @@ Route::middleware(['auth', 'admin', 'preventBackHistory'])
             ->name('toggle');
 
         Route::resource('products', ProductController::class);
+       Route::post('products/data', [ProductController::class, 'data'])->name('products.data');
 
     });
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductImage;
-
+use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
     /**
@@ -25,6 +25,7 @@ class Product extends Model
     /**
      * Type Casting
      */
+    protected $appends = ['main_image_url'];
     protected $casts = [
         'price' => 'decimal:2',
     ];
@@ -41,6 +42,16 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function getMainImageUrlAttribute(){
+    $image = $this->main_image; // or ->where('is_main', 1)->first();
+
+    if (!empty($image)) {
+        return Storage::url($image);
+    }
+
+    return asset('no-image.png');
+}
 
     /**
      * Scope (Search by Name)
