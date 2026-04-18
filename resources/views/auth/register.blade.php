@@ -81,7 +81,7 @@
                                                             @enderror
                                                         </div><br>
                                                         <div>
-                                                            <input type="text" name="mobile" value="{{old('mobile')}}" class="form-control " placeholder="Mobile">
+                                                            <input type="text" name="mobile" value="{{old('mobile')}}" class="form-control " placeholder="Mobile" onKeyPress="if(this.value.length==10) return false;" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
                                                             @error('mobile')
                                                                 <span class="text-danger">{{$message}}</span>
                                                             @enderror

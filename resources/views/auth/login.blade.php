@@ -68,9 +68,9 @@
                                                         <p>Welcome back, please login to your account.</p>
                                                         <input type="email" name="email" id="email" value="{{old('email')}}" class="form-control mb-3" placeholder="Username">
                                                         <input type="password" name="password" id="password"  value="{{old('password')}}" class="form-control mb-2" placeholder="Password">
-                                                        <div class="d-sm-flex justify-content-between mb-3 font-small-2">
+                                                        {{-- <div class="d-sm-flex justify-content-between mb-3 font-small-2">
                                                             <a href="{{route('password.request')}}">Forgot Password?</a>
-                                                        </div>
+                                                        </div> --}}
                                                         <div class="d-flex justify-content-between flex-sm-row flex-column">
                                                             <a href="{{route('register')}}" class="btn bg-light-primary mb-2 mb-sm-0">Register</a>
                                                             <button type="submit" class="btn btn-primary">Login</button>

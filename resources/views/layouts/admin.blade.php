@@ -114,9 +114,9 @@
                                 <div class="user d-md-flex d-none mr-2"><span class="text-right">{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}</span></div>
                             </a>
                             <div class="dropdown-menu text-left dropdown-menu-right m-0 pb-0" aria-labelledby="dropdownBasic2">
-                                <a class="dropdown-item" href="#">
+                                {{-- <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center"><i class="ft-edit mr-2"></i><span>Edit Profile</span></div>
-                                </a>
+                                </a> --}}
                                 <a class="dropdown-item" href="#" onclick="$('#logout-form').submit();">
                                     <div class="d-flex align-items-center"><i class="ft-power mr-2"></i><span>Logout</span></div>
                                 </a>

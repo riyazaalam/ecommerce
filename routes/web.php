@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,8 @@ Route::middleware(['auth', 'admin', 'preventBackHistory'])
 
         Route::post('/dashboard/toggle', [DashboardController::class, 'toggle'])
             ->name('toggle');
+
+        Route::resource('products', ProductController::class);
 
     });
 

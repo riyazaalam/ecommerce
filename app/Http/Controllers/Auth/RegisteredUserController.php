@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -31,14 +32,28 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'numeric', 'digits:10', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ],[
+            'first_name.required' => 'Please enter first name',
+            'last_name.required' => 'Please enter last name',
+            'email.required' => 'Please enter email',
+            'mobile.required' => 'Please enter mobile',
+            'password.required' => 'Please enter password',
+
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
+            'mobile' => $request->mobile,
+            'role'=>'admin',
+            'is_active'=>1,
+            'sidebar_toggle'=>1,
             'password' => Hash::make($request->password),
         ]);
 
@@ -46,6 +61,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(RouteServiceProvider::HOME);
     }
 }
