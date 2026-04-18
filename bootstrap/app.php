@@ -10,9 +10,16 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware) {
-        //
+    ->withMiddleware(function ($middleware) {
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\Admin::class,
+            'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
+        ]);
     })
+    ->withProviders([
+        App\Providers\RouteServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
