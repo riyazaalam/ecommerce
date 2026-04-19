@@ -54,7 +54,8 @@ Route::middleware(['auth', 'admin', 'preventBackHistory'])
         Route::get('products/{id}/view/modal',[ProductController::class, 'viewModal'])->name('products.view.modal');
         Route::post('product/imagedelete', [ProductController::class, 'imageDelete']);
         Route::post('product/upload/product/image', [ProductController::class, 'uploadProductImage'])->name('products.uploadProductImage');
-
+        Route::get('/products/{id}/destroy', [ProductController::class, 'destroy'])
+            ->name('admin.products.destroy');
     });
 
 /*

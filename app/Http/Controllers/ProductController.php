@@ -37,7 +37,8 @@ class ProductController extends Controller
             })
 			->addColumn('action', function ($product) {
 				$edit = '<a href="/admin/products/'.$product->id.'/edit" style="" class="btn btn-sm btn-warning" title="Edit"><i class="ft-edit"></i></a>';
-				return $edit;
+				$delete = '<a href="/admin/products/'.$product->id.'/destroy" style="" class="btn btn-sm btn-danger" title="Tresh" onclick="return confirm(\'Are you sure?\')"><i class="fa fa-trash"></i></a>';
+				return $edit .'&nbsp;&nbsp;'.$delete;
 			})
             ->editColumn('view_images', function ($product) {
                 return '<a class="btn btn-sm btn-info view-entity-btn" data-entity="products" data-entity-id="'.$product->id.'" data-label="Product Id  ('.$product->id.')" title="View Images" ><i class="fa fa-image""></i></a>';
@@ -96,7 +97,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        dd($product);
+        return view('admin.product.form',compact('product'));
     }
 
     /**
@@ -104,15 +105,40 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $this->rules['main_image'] = 'sometimes|nullable';
+        $request->validate($this->rules, $this->customMessages);
+
+		$product->fill($request->all());
+        if($request->hasFile('main_image')){
+            if ($product->main_image) {
+                \Storage::disk('public')->delete($product->main_image);
+            }
+            $product->main_image =  Storage::disk('public')->put('main_image', $request->main_image);
+        }
+        
+		$product->save();
+        return response()->json(['status' => 'success','message' => 'Product Updated Successfully'],201);
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product =Product::find($id);
+       $productImages = ProductImage::where('product_id',$product->id)->get();
+        foreach($productImages as $pImage){
+           if (!empty($pImage->image) && Storage::disk('public')->exists($pImage->image)) {
+                Storage::disk('public')->delete($pImage->image);
+            }
+            $pImage->delete();  
+        }
+        if ($product->main_image) {
+            \Storage::disk('public')->delete($product->main_image);
+        }
+        $product->delete();
+        return redirect()->back();
     }
 
     public function viewModal($id){

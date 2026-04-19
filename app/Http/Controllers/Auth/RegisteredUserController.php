@@ -43,7 +43,6 @@ class RegisteredUserController extends Controller
             'email.required' => 'Please enter email',
             'mobile.required' => 'Please enter mobile',
             'password.required' => 'Please enter password',
-
         ]);
 
         $user = User::create([

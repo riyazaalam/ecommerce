@@ -8,7 +8,7 @@
 <section id="basic-input">
     <div class="row">
         <div class="col-12">
-            <form id="product-form" method="post" action="{{ Route::is('admin.products.create') ? route('admin.products.store') : route('admin.products.update', ['product' => $product->route_key]) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+            <form id="product-form" method="post" action="{{ Route::is('admin.products.create') ? route('admin.products.store') : route('admin.products.update', ['product' => $product->id]) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 {{ Route::is('admin.products.create') ? '' : method_field('PUT') }}
                 <div class="card">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-md-6 mt-3">
                                 <fieldset class="form-group">
-                                    <label for="basicInput">Main Image <sup class="tcul-star-restrict">*</sup></label>
+                                    <label for="basicInput">Main Image <sup class="tcul-star-restrict">@if(isset($product)) @else* @endif</sup></label>
                                     <input type="file" class="form-control-file"  name="main_image" id="product-main_image" placeholder="Main Image" accept="image/*" >
                                     <div id="product-main_image-error" style="color:red"></div>
                                 </fieldset>
@@ -56,10 +56,12 @@
                                     <div id="product-other_images-error" style="color:red"></div>
                                 </fieldset>
                             </div>
+                            @else
+                            <div class="col-md-6 mt-3"></div>
                             @endif
 
                             @if(isset($product) && !empty($product))
-                             <div class="col-md-6">
+                            <div class="col-md-6">
                                 <fieldset class="form-group">
                                     @php
                                         $imagePath = (!empty($product->main_image_url))

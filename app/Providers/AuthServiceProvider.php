@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * Register services
+     * Register any application services.
      */
     public function register(): void
     {
@@ -16,18 +17,23 @@ class AuthServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap services
+     * Bootstrap any application services.
      */
     public function boot(): void
     {
-        // 🔐 ADMIN GATE
-        Gate::define('isAdmin', function ($user) {
+        $this->registerPolicies();
+
+        // 🔐 Admin access
+        Gate::define('isAdmin', function (User $user) {
             return $user->role === 'admin';
         });
 
-        // 🔐 CUSTOMER GATE
-        Gate::define('isCustomer', function ($user) {
+        // 🔐 Customer access
+        Gate::define('isCustomer', function (User $user) {
             return $user->role === 'customer';
         });
+
+        // ❌ IMPORTANT:
+        // Passport::routes();  <-- REMOVE THIS (NOT SUPPORTED IN LATEST VERSION)
     }
 }
