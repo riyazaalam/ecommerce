@@ -171,6 +171,11 @@
                                                 <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Products</span>
                                             </a>
                                         </li>
+                                        <li class="nav-item @if(Route::is('admin.carts.*') && request()->input('type') === null) active @endif">
+                                            <a href="/admin/carts">
+                                                <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Carts</span>
+                                            </a>
+                                        </li>
                                        
                                     </ul>
                                 </li>

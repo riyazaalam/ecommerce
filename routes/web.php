@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,9 @@ Route::middleware(['auth', 'admin', 'preventBackHistory'])
         Route::post('product/upload/product/image', [ProductController::class, 'uploadProductImage'])->name('products.uploadProductImage');
         Route::get('/products/{id}/destroy', [ProductController::class, 'destroy'])
             ->name('admin.products.destroy');
+
+        Route::get('carts', [CartController::class, 'index']);
+        Route::post('carts/data', [CartController::class, 'data'])->name('carts.data');    
     });
 
 /*

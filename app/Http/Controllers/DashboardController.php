@@ -15,7 +15,6 @@ class DashboardController extends Controller
 		return view('admin.dashboard.index');
   	}
     public function toggle(request $request){
-       
 		$user = Auth::user();
 		$user->sidebar_toggle = $request->toggle_status;
 		$user->save();
