@@ -253,22 +253,6 @@
     </div>
     <!-- model for view enquiry end-->
     {{-- Workorder staus change Start --}}
-     <!-- model for view enquiry start-->
-     <div class="modal fade text-left" id="allModulestatus-modal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="view-modal-label">
-        <div class="modal-dialog modal-l" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div id="allModulestatus-modal-label"></div>
-                    <button type="button" class="close close-view" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="allModulestatus-modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- Workorder staus change End --}}
 
     @endcan
 
@@ -357,11 +341,24 @@
             });
         });
 
-      
-
-      
-       
-
+         $(document).on('click','.view-entity-btn',function(e){
+            var entity = $(this).data('entity');
+            var entity_id = $(this).data('entity-id');
+            var label = $(this).data('label');
+            if(entity == 'products'){
+                label = '<span class="badge badge-warning mr-2">Product </span><b>' +label+'</b>';
+            }
+            $('#view-modal-label').html(label);
+            url = '/admin/'+entity+'/'+entity_id+'/view/modal';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response){
+                    $('#view-modal-body').html(response);
+                    $('#view-modal').modal('show');
+                },
+            });
+        });
     </script>
 </body>
 <!-- END : Body-->

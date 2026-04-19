@@ -24,6 +24,7 @@
                                     <th>Name</th>
                                     <th width="20%">Price</th>
                                     <th>Main Image</th>
+                                    <th>Other Images</th>
                                 </tr>
                             </thead>
                         </table>
@@ -55,10 +56,12 @@
 				{data: 'name',name: 'products.name',orderable: false, searchable: false},
                 {data: 'price', name: 'products.price',orderable: false, searchable: false},
                 {data: 'main_image', name: 'products.main_image',orderable: false, searchable: false},
+                {data: 'view_images', name: 'products.view_images',orderable: false, searchable: false},
                 
             ],
             order: [],
         });
     });
+    
 </script>
 @endsection

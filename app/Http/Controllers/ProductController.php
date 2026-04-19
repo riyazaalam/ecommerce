@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -34,17 +36,15 @@ class ProductController extends Controller
                 return '<span class="text-muted">No Image</span>';
             })
 			->addColumn('action', function ($product) {
-				$edit = '<a href="/admin/products/'.$product->id.'/edit" style="" class="btn btn-sm btn-warning"><i class="ft-edit"></i></a>';
+				$edit = '<a href="/admin/products/'.$product->id.'/edit" style="" class="btn btn-sm btn-warning" title="Edit"><i class="ft-edit"></i></a>';
 				return $edit;
 			})
+            ->editColumn('view_images', function ($product) {
+                return '<a class="btn btn-sm btn-info view-entity-btn" data-entity="products" data-entity-id="'.$product->id.'" data-label="Product Id  ('.$product->id.')" title="View Images" ><i class="fa fa-image""></i></a>';
 
-            // 'name',
-            // 'price',
-            // 'main_image',
-            
-
+            })
 			->addIndexColumn()
-			->rawColumns(['name','price','main_image','action'])->setRowId('id')->make(true);
+			->rawColumns(['name','price','main_image','view_images','action'])->setRowId('id')->make(true);
    	}
 
     /**
@@ -60,11 +60,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // dd($request->all());
         $request->validate($this->rules, $this->customMessages);
 		$product = new Product;
 		$product->fill($request->all());
+        if($request->hasFile('main_image')){
+            $product->main_image =  Storage::disk('public')->put('main_image', $request->main_image);
+        }
 		$product->save();
+
+        // Upload multiple images
+        if ($request->hasFile('other_images') && !empty($request->file('other_images'))) {
+            $images = array_filter($request->file('other_images'));
+            foreach ($images as $image) {
+                Storage::disk('public')->put('main_image', $request->main_image);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => Storage::disk('public')->put('other_images', $image)
+                ]);
+            }
+        }
 
 		return response()->json(['status' => 'success','message' => 'Product Created Successfully', 'id' => $product->id, 'label' => $product->name],201);
     }
@@ -100,6 +115,12 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function viewModal($id){
+        $product =Product::find($id);
+        $productImages = ProductImage::where('product_id',$product->id)->get();
+		return view("admin.product.onlyView",compact('product','productImages'));
+	}
 
 
     private $rules = [
