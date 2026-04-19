@@ -359,6 +359,55 @@
                 },
             });
         });
+
+      
+    $(document).on('click', '.productImageDelete', function () {
+
+        let id = $(this).data('id');
+        let product_id = $(this).data('product_id');
+       
+
+        if (!confirm('Are you sure you want to delete this image?')) {
+            return;
+        }
+        $.ajax({
+           url: '/admin/product/imagedelete',
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: id,
+                product_id:product_id
+            },
+            success: function(response){
+                $('#view-modal-body').html(response);
+                $('#view-modal').modal('show');
+            },
+        });
+
+    });
+    $(document).on('submit', '#productImageUpload-form', function(e) {
+        $('div[id$="-error"]').empty();
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
+
+         // 👉 show loader
+        $('#uploadBtn').attr('disabled', true);
+        $('#uploadLoader').removeClass('d-none');
+        $('.btn-text').text('Uploading...');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(response){
+                $('#view-modal-body').html(response);
+                $('#view-modal').modal('show');  
+            },
+        });
+    });
     </script>
 </body>
 <!-- END : Body-->

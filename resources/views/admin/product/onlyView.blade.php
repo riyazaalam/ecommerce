@@ -68,7 +68,11 @@
 }
 </style>
 
-
+@if(isset($message))
+    <div class="alert alert-info">
+        {{ $message }}
+    </div>
+@endif
 <div class="view-data">
 
     <!-- 🔥 MAIN IMAGE -->
@@ -82,23 +86,34 @@
         <div class="image-box">
 
             <!-- ❌ DELETE ICON -->
-            <span class="delete-icon" onclick="deleteImage({{ $img->id }})">×</span>
+            <span class="delete-icon productImageDelete" data-product_id="{{ $product->id }}"  data-id="{{ $img->id }}">×</span>
 
             <img src="{{ $img->image_url }}" alt="">
         </div>
     @endforeach
 
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.products.uploadProductImage') }}" method="POST" enctype="multipart/form-data" id="productImageUpload-form">
         @csrf
         <!-- 🔥 UPLOAD BOX -->
+        <input type="hidden" name="product_id" value="{{ $product->id }}">
         <label class="image-box upload-box">
             <i class="fa fa-plus"></i>
-            <input type="file" name="other_images[]" multiple hidden>
+            <input type="file" name="other_images[]" accept="image/*"  multiple hidden>
         </label>
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary mt-3">Upload Images</button>
-
+        <button type="submit" class="btn btn-primary mt-3" id="uploadBtn">
+            <span class="btn-text">Upload Images</span>
+            <!-- Loader (hidden by default) -->
+            <span class="spinner-border spinner-border-sm d-none" id="uploadLoader"></span>
+        </button>
     </form>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+</script>
+
 

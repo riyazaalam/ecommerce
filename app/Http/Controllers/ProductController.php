@@ -73,7 +73,6 @@ class ProductController extends Controller
         if ($request->hasFile('other_images') && !empty($request->file('other_images'))) {
             $images = array_filter($request->file('other_images'));
             foreach ($images as $image) {
-                Storage::disk('public')->put('main_image', $request->main_image);
                 ProductImage::create([
                     'product_id' => $product->id,
                     'image' => Storage::disk('public')->put('other_images', $image)
@@ -119,8 +118,57 @@ class ProductController extends Controller
     public function viewModal($id){
         $product =Product::find($id);
         $productImages = ProductImage::where('product_id',$product->id)->get();
-		return view("admin.product.onlyView",compact('product','productImages'));
+         $message = '';
+		return view("admin.product.onlyView",compact('product','productImages','message'));
 	}
+
+    public function imageDelete(Request $request){
+       
+        $image = ProductImage::find($request->id);
+        // default message
+        $message = '';
+        // NOT FOUND
+        if (!$image) {
+            $message = "Image not found";
+        } else {
+
+            // DELETE FILE
+            if (!empty($image->image) && Storage::disk('public')->exists($image->image)) {
+                Storage::disk('public')->delete($image->image);
+            }
+            $image->delete();
+
+            $message = "Image deleted successfully";
+        }
+
+
+        $product =Product::find($request->product_id);
+        $productImages = ProductImage::where('product_id',$product->id)->get();
+		return view("admin.product.onlyView",compact('product','productImages','message'));
+    }
+
+    public function uploadProductImage(Request $request){
+       
+        $product =Product::find($request->product_id);
+
+        if ($request->hasFile('other_images') && !empty($request->file('other_images')) && !empty($product)) {
+            $images = array_filter($request->file('other_images'));
+            foreach ($images as $image) {
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => Storage::disk('public')->put('other_images', $image)
+                ]);
+            }
+        }
+        if (!$product) {
+           $message = "Product not found";
+        }else{
+             $message = "Image upload successfully";
+        }
+       
+        $productImages = ProductImage::where('product_id',$product->id)->get();
+		return view("admin.product.onlyView",compact('product','productImages','message'));
+    }
 
 
     private $rules = [

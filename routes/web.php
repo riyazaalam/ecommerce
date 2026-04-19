@@ -52,7 +52,8 @@ Route::middleware(['auth', 'admin', 'preventBackHistory'])
         Route::resource('products', ProductController::class);
         Route::post('products/data', [ProductController::class, 'data'])->name('products.data');
         Route::get('products/{id}/view/modal',[ProductController::class, 'viewModal'])->name('products.view.modal');
-
+        Route::post('product/imagedelete', [ProductController::class, 'imageDelete']);
+        Route::post('product/upload/product/image', [ProductController::class, 'uploadProductImage'])->name('products.uploadProductImage');
 
     });
 
