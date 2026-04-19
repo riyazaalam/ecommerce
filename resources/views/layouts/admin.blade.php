@@ -162,47 +162,21 @@
                     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                         <li class="nav-item @if(Route::is('admin.dashboard.*')) active @endif" ><a href="/admin/dashboard"><i class="fa fa-tachometer"></i><span class="menu-title" data-i18n="Email">Dashboard</span></a>
                         </li>
-                    
-                       
-                                <li class="has-sub nav-item"><a href="#"><i class="fa fa-boxes"></i><span class="menu-title" data-i18n="Tables">Master Products</span></a>
-                                    <ul class="menu-content">
-                                        <li class="nav-item @if(Route::is('admin.products.*') && request()->input('type') === null) active @endif">
-                                            <a href="/admin/products">
-                                                <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Products</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item @if(Route::is('admin.carts.*') && request()->input('type') === null) active @endif">
-                                            <a href="/admin/carts">
-                                                <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Carts</span>
-                                            </a>
-                                        </li>
-                                       
-                                    </ul>
-                                </li>
-                            
-                                {{-- <li class="has-sub nav-item"><a href="#"><i class="fa fa-building"></i><span class="menu-title" data-i18n="Tables">Organisations</span></a>
-                                    <ul class="menu-content">
-                                        <li class="nav-item @if(Route::is('admin.organisations.*')) active @endif" ><a href="/admin/organisations"><i class="fa fa-building"></i><span class="menu-title" data-i18n="Email">List</span></a>
-                                        </li>
-    
-                                        @can('location-view')
-                                        <li class="nav-item @if(Route::is('admin.locations.*')) active @endif" ><a href="/admin/locations"><i class="fa fa-map-marker"></i><span class="menu-title" data-i18n="Email">Locations</span></a>
-                                        </li>
-                                        @endcan
-    
-                                        @can('contact-view')
-                                        <li class="nav-item @if(Route::is('admin.contacts.*')) active @endif" ><a href="/admin/contacts"><i class="fa fa-user"></i><span class="menu-title" data-i18n="Email">Contacts</span></a>
-                                        </li>
-                                        @endcan
-                                    </ul>
-                                </li> --}}
-                       
-                       
-
-                       
-
-                       
-
+                            <li class="has-sub nav-item"><a href="#"><i class="fa fa-boxes"></i><span class="menu-title" data-i18n="Tables">Master Products</span></a>
+                                <ul class="menu-content">
+                                    <li class="nav-item @if(Route::is('admin.products.*') && request()->input('type') === null) active @endif">
+                                        <a href="/admin/products">
+                                            <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Products</span>
+                                        </a>
+                                    </li>
+                                   
+                                </ul>
+                            </li>
+                            <li class="nav-item @if(Route::is('admin.carts.*') && request()->input('type') === null) active @endif">
+                                <a href="/admin/carts">
+                                    <i class="fa fa-box"></i><span class="menu-title" data-i18n="Email">Carts</span>
+                                </a>
+                            </li>
                     </ul>
                 </div>
             </div>
